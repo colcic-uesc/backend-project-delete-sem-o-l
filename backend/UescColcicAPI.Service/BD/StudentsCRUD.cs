@@ -12,16 +12,26 @@ public class StudentsCRUD : IStudentsCRUD
       new Student { StudentId = 3, Name = "Gabriel", Email = "gabriel.cic@uesc.br" },
       new Student { StudentId = 4, Name = "Gabriela", Email = "gabriela.cic@uesc.br" }
    };
-    public void Create(Student entity)
+    public void Create(Student entity) // Método para criar um estudante novo
     {
+        if (entity == null) {
+            throw new ArgumentNullException("entity");
+        }
+
+        // Verificar se já existe um estudante com o mesmo email
+        if (Students.Any(x => x.Email == entity.Email)) {
+            throw new ArgumentException("Já existe um estudante com este email");
+        }
+
         Students.Add(entity);
     }
 
-    public void Delete(Student entity)
-    {   
-        var student = this.Find(entity.Email);
-        if(student is  not null)
-            Students.Remove(student);
+    public void Delete(Student entity) // Método para excluir um estudante
+    {
+        var remove = Students.RemoveAll(x => x.Email == entity.Email);
+        if (remove == 0) {
+            throw new ArgumentException("Estudante não encontrado");
+        }
     }
 
     public IEnumerable<Student> ReadAll()
@@ -35,10 +45,14 @@ public class StudentsCRUD : IStudentsCRUD
         return student;
     }
 
-    public void Update(Student entity)
+    public void Update(Student entity) // Método para atualizar um estudante já existente
     {
-        var student = this.Find(entity.Email);
-        if(student is not null) student.Name = entity.Name;
+        var student = Students.FirstOrDefault(x => x.Email == entity.Email);
+        if (student is not null) {
+            student.Name = entity.Name;
+        } else {
+            throw new ArgumentException("Estudante não encontrado");
+        }
     }
 
     private Student? Find(string email)

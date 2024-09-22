@@ -42,16 +42,50 @@ namespace UescColcicAPI.Controllers;
             }
         }
 
-        [HttpPut(Name = "UpdateStudent")]
-        public void Update(Student student)
+        [HttpPut(Name = "UpdateStudent")] // Método de Update
+        public IActionResult Update([FromBody] Student student)
         {
-            _studentsCRUD.Update(student);
+            if (student == null)
+            {
+                return BadRequest("Student data is null.");
+            }
 
+            _studentsCRUD.Update(student);
+            return Ok("Student updated successfully.");
         }
 
-        [HttpDelete(Name = "DeleteStudent")]
-        public void Delete(Student entity)
+        [HttpDelete(Name = "DeleteStudent")] // Método de Delete
+        public IActionResult Delete([FromBody] Student student)
         {
-            _studentsCRUD.Delete(entity);
+            if (student == null)
+            {
+                return BadRequest("Student data is null.");
+            }
+
+            _studentsCRUD.Delete(student);
+            return Ok("Student deleted successfully.");
+        }
+
+        [HttpPost(Name = "CreateStudent")] // Método de Create
+        public IActionResult Create([FromBody] Student student)
+        {
+            if (student == null)
+            {
+                return BadRequest("Student data is null.");
+            }
+
+            try
+            {
+                _studentsCRUD.Create(student);
+                return CreatedAtAction(nameof(Get), new { email = student.Email }, student);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message); // Tratamento para e-mail duplicado
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error creating student: {ex.Message}");
+            }
         }
     }
