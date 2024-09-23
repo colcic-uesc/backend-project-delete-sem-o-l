@@ -3,6 +3,6 @@ using UescColcicAPI.Core;
 
 namespace UescColcicAPI.Services.BD.Interfaces;
 
-public interface IStudentsCRUD : IBaseCRUD<Student>
+public interface IProfessorCRUD : IBaseCRUD<Professor>
 {
 }
