@@ -2,9 +2,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UescColcicAPI.Services.BD.Interfaces;
 using UescColcicAPI.Core;
+using Microsoft.AspNetCore.Http.HttpResults;
 
-namespace UescColcicAPI.Controllers
-{
+namespace UescColcicAPI.Controllers;
+
     [ApiController]
     [Route("api/[controller]")]
     public class StudentSkillsController : ControllerBase
@@ -120,4 +121,3 @@ namespace UescColcicAPI.Controllers
             }
         }
     }
-}

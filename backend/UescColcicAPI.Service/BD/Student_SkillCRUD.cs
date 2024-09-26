@@ -6,6 +6,14 @@ namespace UescColcicAPI.Services.BD;
 
 public class Student_SkillCRUD : IStudent_SkillCRUD
 {
+    private readonly IStudentsCRUD _studentsCRUD;
+    private readonly ISkillCRUD _skillCRUD;
+
+    public Student_SkillCRUD(IStudentsCRUD studentsCRUD, ISkillCRUD skillCRUD)
+    {
+        _studentsCRUD = studentsCRUD;
+        _skillCRUD = skillCRUD;
+    }
     private static readonly List<Student_Skill> Student_Skill = new()
     {
         new Student_Skill { StudentId_FK = 1, SkillId_FK = 1, Weight = 5 },
@@ -13,15 +21,6 @@ public class Student_SkillCRUD : IStudent_SkillCRUD
         new Student_Skill { StudentId_FK = 2, SkillId_FK = 1, Weight = 3 },
         new Student_Skill { StudentId_FK = 2, SkillId_FK = 3, Weight = 4 }
     };
-
-    private readonly StudentsCRUD _studentsCRUD;
-    private readonly SkillCRUD _skillCRUD;
-
-    public Student_SkillCRUD(StudentsCRUD studentsCRUD, SkillCRUD skillCRUD)
-    {
-        _studentsCRUD = studentsCRUD;
-        _skillCRUD = skillCRUD;
-    }
     
     public void Create(Student_Skill entity)
     {
