@@ -6,7 +6,6 @@ namespace UescColcicAPI.Services.BD;
 
 public class SkillCRUD : ISkillCRUD
 {
-
       private static readonly List<Skill> Skill = new (){
 
       };
