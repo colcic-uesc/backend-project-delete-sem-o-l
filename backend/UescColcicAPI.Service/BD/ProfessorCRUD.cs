@@ -7,10 +7,10 @@ public class ProfessorCRUD : IProfessorCRUD
 {
     private static readonly List<Professor> Professor = new()
    {
-      new Professor { ProfessorId = 1, Name = "Helder", Email = "helder.cic@uesc.br", Department = "ababa", Bio = "ababa" },
-      new Professor { ProfessorId = 2, Name = "Hamilton", Email = "hamilton.cic@uesc.br", Department = "ababa", Bio = "ababa" },
-      new Professor { ProfessorId = 3, Name = "Marta", Email = "marta.cic@uesc.br", Department = "ababa", Bio = "ababa" },
-      new Professor { ProfessorId = 4, Name = "Esbel", Email = "esbel.cic@uesc.br", Department = "ababa", Bio = "ababa" }
+      new Professor { ProfessorId = 1, Name = "Helder", Email = "helder.cic@uesc.br", Department = "Departamento de Ciência da Computação", Bio = "Doutor em Ciência da Computação com especialização em Inteligência Artificial e Aprendizado de Máquina" },
+      new Professor { ProfessorId = 2, Name = "Hamilton", Email = "hamilton.cic@uesc.br", Department = "Departamento de Engenharia Elétrica", Bio = "Engenheiro elétrico e mestre em Automação, com foco em sistemas embarcados e controle de processos industriais" },
+      new Professor { ProfessorId = 3, Name = "Marta", Email = "marta.cic@uesc.br", Department = "Departamento de Matemática", Bio = "Doutora em Matemática Pura, com ampla experiência em álgebra abstrata e geometria diferencial" },
+      new Professor { ProfessorId = 4, Name = "Esbel", Email = "esbel.cic@uesc.br", Department = "Departamento de Física", Bio = "Físico teórico especializado em mecânica quântica e teoria das cordas, com publicações de destaque na área" }
    };
 
     public void Create(Professor entity)

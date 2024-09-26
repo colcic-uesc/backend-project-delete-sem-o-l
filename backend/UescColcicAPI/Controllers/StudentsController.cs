@@ -16,7 +16,6 @@ namespace UescColcicAPI.Controllers;
         {
             _studentsCRUD = studentsCRUD;
         }
-
        
         [HttpGet(Name = "GetStudents")]
         public IEnumerable<Student> Get()

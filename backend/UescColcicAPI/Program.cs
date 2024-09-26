@@ -9,6 +9,8 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped<IStudentsCRUD, StudentsCRUD>();
 builder.Services.AddScoped<IProfessorCRUD, ProfessorCRUD>();
+builder.Services.AddScoped<ISkillCRUD, SkillCRUD>();
+builder.Services.AddScoped<IStudent_SkillCRUD, Student_SkillCRUD>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
