@@ -13,16 +13,38 @@ public class Student_SkillCRUD : IStudent_SkillCRUD
         new Student_Skill { StudentId_FK = 2, SkillId_FK = 1, Weight = 3 },
         new Student_Skill { StudentId_FK = 2, SkillId_FK = 3, Weight = 4 }
     };
+
+    private readonly StudentsCRUD _studentsCRUD;
+    private readonly SkillCRUD _skillCRUD;
+
+    public Student_SkillCRUD(StudentsCRUD studentsCRUD, SkillCRUD skillCRUD)
+    {
+        _studentsCRUD = studentsCRUD;
+        _skillCRUD = skillCRUD;
+    }
     
     public void Create(Student_Skill entity)
     {
-        if(entity == null) {
+        if (entity == null)
+        {
             throw new ArgumentNullException(nameof(entity));
         }
-        if(Student_Skill.Any(x => x.SkillId_FK == entity.SkillId_FK && x.StudentId_FK == entity.StudentId_FK))
+        // Verifica se o estudante existe
+        if (_studentsCRUD.ReadById(entity.StudentId_FK) == null)
+        {
+            throw new ArgumentException("Estudante não encontrado");
+        }
+        // Verifica se a skill existe
+        if (_skillCRUD.ReadById(entity.SkillId_FK) == null)
+        {
+            throw new ArgumentException("Skill não encontrada");
+        }
+        // Verifica se o relacionamento já existe
+        if (Student_Skill.Any(x => x.SkillId_FK == entity.SkillId_FK && x.StudentId_FK == entity.StudentId_FK))
         {
             throw new ArgumentException("Já existe este relacionamento");
         }
+        
         Student_Skill.Add(entity);
     }
     
@@ -38,31 +60,61 @@ public class Student_SkillCRUD : IStudent_SkillCRUD
 
     public void Update(Student_Skill entity)
     {
+        if (entity == null)
+        {
+            throw new ArgumentNullException(nameof(entity));
+        }
+        // Verifica se o estudante existe
+        if (_studentsCRUD.ReadById(entity.StudentId_FK) == null)
+        {
+            throw new ArgumentException("Estudante não encontrado");
+        }
+        // Verifica se a skill existe
+        if (_skillCRUD.ReadById(entity.SkillId_FK) == null)
+        {
+            throw new ArgumentException("Skill não encontrada");
+        }
+
         var relationship = Find(entity.StudentId_FK, entity.SkillId_FK);
         if (relationship != null)
         {
             relationship.Weight = entity.Weight;
-        } else {
+        }
+        else
+        {
             throw new ArgumentException("Relacionamento não encontrado");
         }
     }
 
     public void Delete(Student_Skill entity)
     {
+        if (entity == null)
+        {
+            throw new ArgumentNullException(nameof(entity));
+        }
+        // Verifica se o estudante existe
+        if (_studentsCRUD.ReadById(entity.StudentId_FK) == null)
+        {
+            throw new ArgumentException("Estudante não encontrado");
+        }
+        // Verifica se a skill existe
+        if (_skillCRUD.ReadById(entity.SkillId_FK) == null)
+        {
+            throw new ArgumentException("Skill não encontrada");
+        }
+        
         var relationship = Find(entity.StudentId_FK, entity.SkillId_FK);
-        if (relationship != null) {
+        if (relationship != null)
+        {
             Student_Skill.Remove(relationship);
-        } else {
+        }
+        else
+        {
             throw new ArgumentException("Relacionamento não encontrado");
         }
     }
 
     public Student_Skill? ReadById(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    object IStudent_SkillCRUD.Find(int studentId, int skillId)
     {
         throw new NotImplementedException();
     }

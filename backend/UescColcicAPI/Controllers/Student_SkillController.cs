@@ -2,36 +2,44 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UescColcicAPI.Services.BD.Interfaces;
 using UescColcicAPI.Core;
- 
+
 namespace UescColcicAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class Student_SkillsController : ControllerBase
+    public class StudentSkillsController : ControllerBase
     {
         private readonly IStudent_SkillCRUD _studentSkillCRUD;
 
-        public Student_SkillsController(IStudent_SkillCRUD studentSkillCRUD)
+        public StudentSkillsController(IStudent_SkillCRUD studentSkillCRUD)
         {
             _studentSkillCRUD = studentSkillCRUD;
         }
 
+        // Método para obter todos os relacionamentos de Student_Skill
         [HttpGet(Name = "GetStudentSkills")]
         public IEnumerable<Student_Skill> Get()
         {
             return _studentSkillCRUD.ReadAll();
         }
 
+        // Método Get
         [HttpGet("{studentId}/{skillId}", Name = "GetStudentSkill")]
         public ActionResult<Student_Skill> Get(int studentId, int skillId)
         {
             try
             {
-                var studentSkill = _studentSkillCRUD.Find(studentId, skillId);
+                // Obter todos os relacionamentos de Student_Skill
+                var studentSkills = _studentSkillCRUD.ReadAll();
+
+                // Filtrar o relacionamento específico usando LINQ
+                var studentSkill = studentSkills.FirstOrDefault(x => x.StudentId_FK == studentId && x.SkillId_FK == skillId);
+
                 if (studentSkill == null)
                 {
-                    return NotFound($"Relationship between Student ID {studentId} and Skill ID {skillId} not found.");
+                    return NotFound($"StudentSkill with Student ID {studentId} and Skill ID {skillId} not found.");
                 }
+
                 return Ok(studentSkill);
             }
             catch (Exception ex)
@@ -40,58 +48,61 @@ namespace UescColcicAPI.Controllers
             }
         }
 
+        // Método Update
         [HttpPut(Name = "UpdateStudentSkill")]
         public IActionResult Update([FromBody] Student_Skill studentSkill)
         {
             if (studentSkill == null)
             {
-                return BadRequest("Student_Skill data is null.");
+                return BadRequest("StudentSkill data is null.");
             }
 
             try
             {
                 _studentSkillCRUD.Update(studentSkill);
-                return Ok("Student_Skill updated successfully.");
+                return Ok("StudentSkill updated successfully.");
             }
             catch (ArgumentException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.Message); // Tratamento de exceção
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error updating StudentSkill: {ex.Message}");
             }
         }
 
+        // Método Delete
         [HttpDelete(Name = "DeleteStudentSkill")]
         public IActionResult Delete([FromBody] Student_Skill studentSkill)
         {
             if (studentSkill == null)
             {
-                return BadRequest("Student_Skill data is null.");
+                return BadRequest("StudentSkill data is null.");
             }
 
             try
             {
                 _studentSkillCRUD.Delete(studentSkill);
-                return Ok("Student_Skill deleted successfully.");
+                return Ok("StudentSkill deleted successfully.");
             }
             catch (ArgumentException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.Message); // Tratamento de exceção
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error deleting StudentSkill: {ex.Message}");
             }
         }
 
+        // Método Create
         [HttpPost(Name = "CreateStudentSkill")]
         public IActionResult Create([FromBody] Student_Skill studentSkill)
         {
             if (studentSkill == null)
             {
-                return BadRequest("Student_Skill data is null.");
+                return BadRequest("StudentSkill data is null.");
             }
 
             try
@@ -101,11 +112,11 @@ namespace UescColcicAPI.Controllers
             }
             catch (ArgumentException ex)
             {
-                return BadRequest(ex.Message); // Tratamento para duplicação de relacionamento
+                return BadRequest(ex.Message); // Tratamento de exceção
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Error creating relationship: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error creating StudentSkill: {ex.Message}");
             }
         }
     }
