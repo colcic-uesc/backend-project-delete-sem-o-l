@@ -6,6 +6,6 @@ public class Project {
     public required string title { get; set; }
     public required string description { get; set; }
     public required string type { get; set; }
-    public DateOnly StartDate { get; set; }
-    public DateOnly EndDate { get; set; }
+    public required DateTime StartDate { get; set; }
+    public required DateTime EndDate { get; set; }
 }
