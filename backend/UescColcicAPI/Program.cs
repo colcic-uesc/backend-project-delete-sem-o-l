@@ -9,14 +9,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 // Adiciona o DbContext e configura a string de conexão (usando SQLite como exemplo)
-builder.Services.AddDbContext<MyDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<MyDbContext>();
 
 // Adiciona as implementações dos serviços
 builder.Services.AddScoped<IStudentsCRUD, StudentsCRUD>();
-// builder.Services.AddScoped<IProfessorCRUD, ProfessorCRUD>();
+builder.Services.AddScoped<IProfessorCRUD, ProfessorCRUD>();
 builder.Services.AddScoped<ISkillCRUD, SkillCRUD>();
 builder.Services.AddScoped<IStudent_SkillCRUD, Student_SkillCRUD>();
+builder.Services.AddScoped<IProjectCRUD, ProjectCRUD>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
