@@ -2,10 +2,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UescColcicAPI.Services.BD.Interfaces;
 using UescColcicAPI.Core;
-using Microsoft.AspNetCore.Http.HttpResults;
 
-namespace UescColcicAPI.Controllers;
-
+namespace UescColcicAPI.Controllers
+{
     [ApiController]
     [Route("api/[controller]")]
     public class ProfessorController : ControllerBase
@@ -16,14 +15,15 @@ namespace UescColcicAPI.Controllers;
         {
             _professorCRUD = professorCRUD;
         }
-       
-        [HttpGet(Name = "GetAllProfessors")]
-        public IEnumerable<Professor> Get()
+
+        [HttpGet]
+        public ActionResult<IEnumerable<Professor>> Get()
         {
-            return _professorCRUD.ReadAll();
+            var professors = _professorCRUD.ReadAll();
+            return Ok(professors);
         }
 
-        [HttpGet("{id}", Name = "GetProfessorById")]
+        [HttpGet("{id}")]
         public ActionResult<Professor> Get(int id)
         {
             try
@@ -41,31 +41,7 @@ namespace UescColcicAPI.Controllers;
             }
         }
 
-        [HttpPut(Name = "UpdateProfessor")] // Método de Update
-        public IActionResult Update([FromBody] Professor professor)
-        {
-            if (professor == null)
-            {
-                return BadRequest("Professor data is null.");
-            }
-
-            _professorCRUD.Update(professor);
-            return Ok("Professor updated successfully.");
-        }
-
-        [HttpDelete(Name = "DeleteProfessor")] // Método de Delete
-        public IActionResult Delete([FromBody] Professor professor)
-        {
-            if (professor == null)
-            {
-                return BadRequest("Professor data is null.");
-            }
-
-            _professorCRUD.Delete(professor);
-            return Ok("Professor deleted successfully.");
-        }
-
-        [HttpPost(Name = "CreateProfessor")] // Método de Create
+        [HttpPost]
         public IActionResult Create([FromBody] Professor professor)
         {
             if (professor == null)
@@ -76,15 +52,60 @@ namespace UescColcicAPI.Controllers;
             try
             {
                 _professorCRUD.Create(professor);
-                return CreatedAtAction(nameof(Get), new { email = professor.Email }, professor);
+                return CreatedAtAction(nameof(Get), new { id = professor.ProfessorId }, professor);
             }
             catch (ArgumentException ex)
             {
-                return BadRequest(ex.Message); // Tratamento para e-mail duplicado
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Error creating professor: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error creating professor: {ex.Message}. Inner Exception: {ex.InnerException?.Message}");
+            }
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, [FromBody] Professor professor)
+        {
+            if (professor == null)
+            {
+                return BadRequest("Professor data is null.");
+            }
+
+            if (id != professor.ProfessorId)
+            {
+                return BadRequest("Professor ID mismatch.");
+            }
+
+            try
+            {
+                _professorCRUD.Update(professor);
+                return Ok("Professor updated successfully.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error updating professor: {ex.Message}");
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                var professor = _professorCRUD.ReadById(id);
+                if (professor == null)
+                {
+                    return NotFound($"Professor with ID {id} not found.");
+                }
+
+                _professorCRUD.Delete(professor);
+                return Ok("Professor deleted successfully.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error deleting professor: {ex.Message}");
             }
         }
     }
+}
