@@ -1,65 +1,83 @@
 using UescColcicAPI.Services.BD.Interfaces;
 using UescColcicAPI.Core;
+using Microsoft.EntityFrameworkCore;
 
 namespace UescColcicAPI.Services.BD;
 
 public class ProfessorCRUD : IProfessorCRUD
 {
-    private static readonly List<Professor> Professor = new()
-   {
-    //   new Professor { ProfessorId = 1, Name = "Helder", Email = "helder.cic@uesc.br", Department = "Departamento de Ciência da Computação", Bio = "Doutor em Ciência da Computação com especialização em Inteligência Artificial e Aprendizado de Máquina" },
-    //   new Professor { ProfessorId = 2, Name = "Hamilton", Email = "hamilton.cic@uesc.br", Department = "Departamento de Engenharia Elétrica", Bio = "Engenheiro elétrico e mestre em Automação, com foco em sistemas embarcados e controle de processos industriais" },
-    //   new Professor { ProfessorId = 3, Name = "Marta", Email = "marta.cic@uesc.br", Department = "Departamento de Matemática", Bio = "Doutora em Matemática Pura, com ampla experiência em álgebra abstrata e geometria diferencial" },
-    //   new Professor { ProfessorId = 4, Name = "Esbel", Email = "esbel.cic@uesc.br", Department = "Departamento de Física", Bio = "Físico teórico especializado em mecânica quântica e teoria das cordas, com publicações de destaque na área" }
-   };
+    private readonly MyDbContext _context;
+
+    public ProfessorCRUD(MyDbContext context)
+    {
+        _context = context ?? throw new ArgumentNullException(nameof(context));
+    }
 
     public void Create(Professor entity)
     {
-        if (entity == null) {
-            throw new ArgumentNullException("entity");
+        if (entity == null)
+        {
+            throw new ArgumentNullException(nameof(entity));
         }
-        if (Professor.Any(x => x.Email == entity.Email)) {
+        if (_context.Professors.Any(x => x.Email == entity.Email))
+        {
             throw new ArgumentException("Já existe um professor com este email");
         }
-        Professor.Add(entity);
+        _context.Professors.Add(entity);
+        _context.SaveChanges();
     }
 
     public void Delete(Professor entity)
     {
-        var remove = Professor.RemoveAll(x => x.Email == entity.Email);
-        if (remove == 0) {
+        var professor = _context.Professors.FirstOrDefault(x => x.Email == entity.Email);
+        if (professor != null)
+        {
+            _context.Professors.Remove(professor);
+            _context.SaveChanges();
+        }
+        else
+        {
             throw new ArgumentException("Professor não encontrado");
         }
     }
 
-    public void Update(Professor entity)
+    public void Update(Professor professor)
     {
-        var student = Professor.FirstOrDefault(x => x.Email == entity.Email);
-        if (student is not null) {
-            student.Name = entity.Name;
-        } else {
-            throw new ArgumentException("Professor não encontrado");
+        var existingProfessor = _context.Professors.Include(p => p.Projects)
+                                                   .FirstOrDefault(p => p.ProfessorId == professor.ProfessorId);
+
+        if (existingProfessor != null)
+        {
+            // Atualizar dados do professor
+            existingProfessor.Name = professor.Name;
+            existingProfessor.Email = professor.Email;
+            existingProfessor.Department = professor.Department;
+            existingProfessor.Bio = professor.Bio;
+
+            // Se necessário, atualizar também os projetos do professor
+            existingProfessor.Projects = professor.Projects;
+
+            _context.SaveChanges();
         }
     }
 
     IEnumerable<Professor> IBaseCRUD<Professor>.ReadAll()
     {
-        return Professor;
+        return _context.Professors;
     }
 
     public Professor? ReadById(int id)
     {
-        var professor = this.Find(id);
-        return professor;
+        return _context.Professors.FirstOrDefault(x => x.ProfessorId == id);
     }
 
     private Professor? Find(string email)
     {
-        return Professor.FirstOrDefault(x => x.Email == email);
+        return _context.Professors.FirstOrDefault(x => x.Email == email);
     }
 
     private Professor? Find(int id)
     {
-        return Professor.FirstOrDefault(x => x.ProfessorId == id);
+        return _context.Professors.FirstOrDefault(x => x.ProfessorId == id);
     }
 }
