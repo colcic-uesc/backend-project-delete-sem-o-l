@@ -1,6 +1,7 @@
 using UescColcicAPI.Services.BD;
 using UescColcicAPI.Services.BD.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using UescColcicAPI.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
