@@ -4,7 +4,6 @@ using UescColcicAPI.Services.BD.Interfaces;
 using UescColcicAPI.Core;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Authorization;
-using UescColcicAPI.Services.BD;
 
 namespace UescColcicAPI.Controllers
 {

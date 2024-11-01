@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace UescColcicAPI.Services.BD
 {
-    public class UsersCRUD : IUserCRUD
+    public class UserCRUD : IUserCRUD
     {
         private readonly MyDbContext _context;
 
-        public UsersCRUD(MyDbContext context)
+        public UserCRUD(MyDbContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }

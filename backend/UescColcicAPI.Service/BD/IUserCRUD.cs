@@ -1,8 +1,8 @@
 using System;
 using UescColcicAPI.Core;
 
-namespace UescColcicAPI.Services.BD;
+namespace UescColcicAPI.Services.BD.Interfaces;
 
-public class IUserCRUD
+public interface IUserCRUD  : IBaseCRUD<User>
 {
 }

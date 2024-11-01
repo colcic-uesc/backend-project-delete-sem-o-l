@@ -44,6 +44,7 @@ builder.Services.AddScoped<IProfessorCRUD, ProfessorCRUD>();
 builder.Services.AddScoped<ISkillCRUD, SkillCRUD>();
 builder.Services.AddScoped<IStudent_SkillCRUD, Student_SkillCRUD>();
 builder.Services.AddScoped<IProjectCRUD, ProjectCRUD>();
+builder.Services.AddScoped<IUserCRUD, UserCRUD>();
 builder.Services.AddScoped<AuthService>();
 
 // Configuração do Swagger para incluir autenticação JWT
