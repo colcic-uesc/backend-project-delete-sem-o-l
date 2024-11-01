@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using UescColcicAPI.Services.BD.Interfaces;
 using UescColcicAPI.Core;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Authorization;
 
 namespace UescColcicAPI.Controllers;
 
@@ -18,12 +19,14 @@ public class StudentsController : ControllerBase
     }
     
     [HttpGet(Name = "GetStudents")]
+    [Authorize]
     public IEnumerable<Student> Get()
     {
         return _studentsCRUD.ReadAll();
     }
 
     [HttpGet("{id}", Name = "GetStudent")]
+    [Authorize]
     public ActionResult<Student> Get(int id)
     {
         try
@@ -42,6 +45,7 @@ public class StudentsController : ControllerBase
     }
 
     [HttpPut(Name = "UpdateStudent")] // Método de Update
+    [Authorize]
     public IActionResult Update([FromBody] Student student)
     {
         if (student == null)
@@ -54,6 +58,7 @@ public class StudentsController : ControllerBase
     }
 
     [HttpDelete(Name = "DeleteStudent")] // Método de Delete
+    [Authorize]
     public IActionResult Delete([FromBody] Student student)
     {
         if (student == null)
@@ -66,6 +71,7 @@ public class StudentsController : ControllerBase
     }
 
     [HttpPost(Name = "CreateStudent")] // Método de Create
+    [Authorize]
     public IActionResult Create([FromBody] Student student)
     {
         if (student == null)
