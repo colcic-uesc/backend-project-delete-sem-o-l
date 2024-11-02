@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using UescColcicAPI.Services.BD.Interfaces;
 using UescColcicAPI.Core;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Authorization;
 
 namespace UescColcicAPI.Controllers;
 
@@ -18,12 +19,14 @@ namespace UescColcicAPI.Controllers;
         }
 
         [HttpGet(Name = "GetSkills")]
+        [Authorize]
         public IEnumerable<Skill> Get()
         {
             return _skillCRUD.ReadAll();
         }
 
         [HttpGet("{id}", Name = "GetSkill")]
+        [Authorize]
         public ActionResult<Skill> Get(int id)
         {
             try
@@ -42,6 +45,7 @@ namespace UescColcicAPI.Controllers;
         }
 
         [HttpPut(Name = "UpdateSkill")]
+        [Authorize]
         public IActionResult Update([FromBody] Skill skill)
         {
             if (skill == null)
@@ -54,6 +58,7 @@ namespace UescColcicAPI.Controllers;
         }
 
         [HttpDelete(Name = "DeleteSkill")]
+        [Authorize]
         public IActionResult Delete([FromBody] Skill skill)
         {
             if (skill == null)
@@ -66,6 +71,7 @@ namespace UescColcicAPI.Controllers;
         }
 
         [HttpPost(Name = "CreateSkill")]
+        [Authorize]
         public IActionResult Create([FromBody] Skill skill)
         {
             if (skill == null)

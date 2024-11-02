@@ -46,6 +46,11 @@ namespace UescColcicAPI.Services.BD
             return _context.Users.FirstOrDefault(x => x.UserId == id);
         }
 
+        public User? ReadByUsername(string username)
+        {
+            return _context.Users.FirstOrDefault(x => x.Username == username);
+        }
+
         public void Update(User entity)
         {
             var user = _context.Users.FirstOrDefault(x => x.UserId == entity.UserId);

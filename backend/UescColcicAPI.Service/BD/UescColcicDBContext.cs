@@ -41,7 +41,7 @@ public partial class MyDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite("Data Source=/home/estevao/Documentos/Estudos_Programação/Web/WEB-24.2/backend/UescColcicAPI/UescColcicAPI.db");
+        optionsBuilder.UseSqlite("Data Source=/home/rorizdavioliveira/UESC/colcic_web_2024_2/backend/UescColcicAPI/UescColcicAPI.db");
 
         base.OnConfiguring(optionsBuilder);
 

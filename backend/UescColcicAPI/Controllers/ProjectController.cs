@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using UescColcicAPI.Services.BD.Interfaces;
 using UescColcicAPI.Core;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Authorization;
 
 namespace UescColcicAPI.Controllers;
 
@@ -18,12 +19,14 @@ public class ProjectController : ControllerBase
         }
        
         [HttpGet(Name = "GetProject")]
+        [Authorize]
         public IEnumerable<Project> Get()
         {
             return _projectsCRUD.ReadAll();
         }
 
         [HttpGet("{id}", Name = "GetProject{id}")]
+        [Authorize]
         public ActionResult<Project> Get(int id)
         {
             try
@@ -42,6 +45,7 @@ public class ProjectController : ControllerBase
         }
 
         [HttpPut(Name = "UpdateProject")] // Método de Update
+        [Authorize]
         public IActionResult Update([FromBody] Project Project)
         {
             if (Project == null)
@@ -54,6 +58,7 @@ public class ProjectController : ControllerBase
         }
 
         [HttpDelete(Name = "DeleteProject")] // Método de Delete
+        [Authorize]
         public IActionResult Delete([FromBody] Project Project)
         {
             if (Project == null)
@@ -65,7 +70,8 @@ public class ProjectController : ControllerBase
             return Ok("Project deleted successfully.");
         }
 
-        [HttpPost(Name = "CreateProject")] // Método de Create
+        [HttpPost(Name = "CreateProject")] // Método de Create]
+        [Authorize]
         public IActionResult Create([FromBody] Project Project)
         {
             if (Project == null)

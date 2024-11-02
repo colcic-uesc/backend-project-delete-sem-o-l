@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UescColcicAPI.Services.BD.Interfaces;
 using UescColcicAPI.Core;
+using Microsoft.AspNetCore.Authorization;
 
 namespace UescColcicAPI.Controllers
 {
@@ -17,6 +18,7 @@ namespace UescColcicAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult<IEnumerable<Professor>> Get()
         {
             var professors = _professorCRUD.ReadAll();
@@ -24,6 +26,7 @@ namespace UescColcicAPI.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public ActionResult<Professor> Get(int id)
         {
             try
@@ -42,6 +45,7 @@ namespace UescColcicAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Create([FromBody] Professor professor)
         {
             if (professor == null)
@@ -65,6 +69,7 @@ namespace UescColcicAPI.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public IActionResult Update(int id, [FromBody] Professor professor)
         {
             if (professor == null)
@@ -89,6 +94,7 @@ namespace UescColcicAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public IActionResult Delete(int id)
         {
             try

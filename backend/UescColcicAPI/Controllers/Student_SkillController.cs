@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using UescColcicAPI.Services.BD.Interfaces;
 using UescColcicAPI.Core;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Authorization;
 
 namespace UescColcicAPI.Controllers;
 
@@ -19,6 +20,7 @@ namespace UescColcicAPI.Controllers;
 
         // Método para obter todos os relacionamentos de Student_Skill
         [HttpGet(Name = "GetStudentSkills")]
+        [Authorize]
         public IEnumerable<Student_Skill> Get()
         {
             return _studentSkillCRUD.ReadAll();
@@ -26,6 +28,7 @@ namespace UescColcicAPI.Controllers;
 
         // Método Get
         [HttpGet("{studentId}/{skillId}", Name = "GetStudentSkill")]
+        [Authorize]
         public ActionResult<Student_Skill> Get(int studentId, int skillId)
         {
             try
@@ -51,6 +54,7 @@ namespace UescColcicAPI.Controllers;
 
         // Método Update
         [HttpPut(Name = "UpdateStudentSkill")]
+        [Authorize]
         public IActionResult Update([FromBody] Student_Skill studentSkill)
         {
             if (studentSkill == null)
@@ -75,6 +79,7 @@ namespace UescColcicAPI.Controllers;
 
         // Método Delete
         [HttpDelete(Name = "DeleteStudentSkill")]
+        [Authorize]
         public IActionResult Delete([FromBody] Student_Skill studentSkill)
         {
             if (studentSkill == null)
@@ -99,6 +104,7 @@ namespace UescColcicAPI.Controllers;
 
         // Método Create
         [HttpPost(Name = "CreateStudentSkill")]
+        [Authorize]
         public IActionResult Create([FromBody] Student_Skill studentSkill)
         {
             if (studentSkill == null)
