@@ -24,12 +24,24 @@ public partial class MyDbContext : DbContext
             .WithOne()
             .IsRequired(false);
 
+        modelBuilder.Entity<User>()
+            .HasOne(u => u.Professor)
+            .WithOne(p => p.user)
+            .HasForeignKey<Professor>(s => s.UserID_FK)
+            .IsRequired(false);
+
+        modelBuilder.Entity<User>()
+            .HasOne(u => u.Student)
+            .WithOne(s => s.user)
+            .HasForeignKey<Student>(s => s.UserID_FK)
+            .IsRequired(false);
+            
         base.OnModelCreating(modelBuilder);   
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite("Data Source=/home/rorizdavioliveira/UESC/colcic_web_2024_2/backend/UescColcicAPI/UescColcicAPI.db");
+        optionsBuilder.UseSqlite("Data Source=/home/estevao/Documentos/Estudos_Programação/Web/WEB-24.2/backend/UescColcicAPI/UescColcicAPI.db");
 
         base.OnConfiguring(optionsBuilder);
 
