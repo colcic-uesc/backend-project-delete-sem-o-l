@@ -10,5 +10,8 @@ namespace UescColcicAPI.Core
         public int Registration { get; set; }
         public string Course { get; set; }
         public string Bio { get; set; }
+
+        public int? UserID_FK { get; set; }
+        public User user { get; set;}
     }
 }

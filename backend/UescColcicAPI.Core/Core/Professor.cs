@@ -12,4 +12,7 @@ public class Professor
 
     // Navegação para projetos (um professor tem vários projetos)
     public ICollection<Project> Projects { get; set; } = new List<Project>();
+
+    public int? UserID_FK {get; set;}
+    public User user {get; set;}
 }
