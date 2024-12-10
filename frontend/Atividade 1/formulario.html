@@ -20,15 +20,36 @@
             <input class="form-input" type="password" name="senha" id="senha" placeholder="Senha" required><br>
             <input class="form-input" type="tel" name="telefone" id="telefone" placeholder="Telefone" required><br>
             
+            <select class="select-sexo" name="sexo" id="sexo" required>
+                <option value="" disabled selected>Gênero</option>
+                <option value="masculino">Masculino</option>
+                <option value="feminino">Feminino</option>
+            </select><br>
+
+            <fieldset class="form-fieldset">
+                <legend class="form-legend">Experiência:</legend>
+                <label><input class="form-radio" type="radio" name="experiencia" value="junior" required> Júnior</label><br>
+                <label><input class="form-radio" type="radio" name="experiencia" value="pleno"> Pleno</label><br>
+                <label><input class="form-radio" type="radio" name="experiencia" value="senior"> Sênior</label><br>
+            </fieldset><br>
+
+            <fieldset class="form-fieldset">
+                <legend class="form-legend">Linguagens e Tecnologias:</legend>
+                <label><input class="form-checkbox" type="checkbox" name="linguagens" value="html"> HTML</label><br>
+                <label><input class="form-checkbox" type="checkbox" name="linguagens" value="css"> CSS</label><br>
+                <label><input class="form-checkbox" type="checkbox" name="linguagens" value="javascript"> JavaScript</label><br>
+                <label><input class="form-checkbox" type="checkbox" name="linguagens" value="python"> Python</label><br>
+            </fieldset><br>
+
             <textarea class="form-textarea" name="msg" id="msg" placeholder="Bio" cols="30" rows="5" required></textarea><br>
-            
+
             <button class="form-button" type="submit">
                 <span class="button-text">Enviar dados</span>
             </button>
         </form>
     </main>
     <footer class="footer">
-        <p class="footer-text">&copy; 2024 Meu Site. Todos os direitos reservados.</p>
+        <p class="footer-text">&copy; 2024 Projetin do Front. Todos os direitos reservados a Davi Roriz e Estêvão Sousa.</p>
     </footer>
     <script src="/frontend/Atividade 1/script.js"></script>
 </body>
