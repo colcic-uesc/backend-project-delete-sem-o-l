@@ -29,3 +29,96 @@ footer {
     margin-top: 16px;
     padding: 24px;
 }
+
+/* -------------------------------- */
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 10vh;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+.nav-links {
+    display: flex;
+    list-style: none;
+    font-size: 14px;
+}
+.nav-links li {
+    margin: 0 10px;
+}
+.nav-links a {
+    position: relative;
+}
+.links {
+    color: #25d366;
+}
+.links::after {
+    content: " ";
+    width: 0%;
+    height: 1.3px;
+    background-color: #ffffff;
+    position: absolute;
+    bottom: -1px;
+    left: 0px;
+    transition: width 0.4s ease-in-out;
+}
+.links:hover::after {
+    width: 100%;
+}
+.mobile-menu {
+    display: none;
+    cursor: pointer;
+}
+
+@media (max-width: 999px) { /* Responsividade para telas menores do que 999px */
+    body {
+        overflow-x: hidden; /* Esconde o menu a direita da tela quando não ativado */
+    }
+    .nav-links {
+        position: absolute;
+        top: 8vh;
+        right: 0; /* Posiciona o menu a direita da tela */
+        width: 50vw; /* Define a largura do menu como 50vw */
+        height: 100vh; /* Define a altura do menu como 100vh */
+        background: #25d366; /* Cor do background do menu */
+        flex-direction: column; /* Posiciona os links de navegação como coluna */
+        align-items: center; /* Posiciona os links de navegação no centro do menu */
+        justify-content: space-around; /* Cria um espaçamento entre os links de navegação */
+        transform: translateX(100%); /* Empurra o menu para esquerda quando ativado */
+        transition: transform 0.3s ease-in; /* Estilo de transição para quando for ativado */
+    }
+    .links {
+        color: white; /* Atribui a cor branca aos links de navegação do menu */
+    }
+    .nav-links li {
+        margin-left: 0;
+    }
+    .mobile-menu {
+        display: block;
+    }
+}
+
+.nav-links.active {
+    transform: translateX(0);
+}
+/* Início da animação que transforma o menu hamburguer em um X quando ativado */
+.mobile-menu.active .line1 {
+    transform: rotate(-45deg) translate(-8px, 8px);
+}
+.mobile-menu.active .line2 {
+    opacity: 0;
+}
+.mobile-menu.active .line3 {
+    transform: rotate(45deg) translate(-8px, -8px);
+}
+
+.mobile-menu div { /* Construção das linhas do hamburguer do menu mobile */
+    width: 32px;
+    height: 4px;
+    background: #25d366;
+    margin: 8px;
+    transition: 0.3s;
+}

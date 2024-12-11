@@ -12,8 +12,7 @@ body {
 
 main {
     place-content: center;
-    width: 100%;
-    max-width: 400px;
+    width: 40%;
     margin: 0 auto;
     color: #ffffff;
     margin-top: 10px;
@@ -82,4 +81,10 @@ main {
     border-radius: 4px;
     font-size: 16px;
     height: 40px;
+}
+
+@media (max-width: 999px) {
+    main {
+        width: 80%;
+    }
 }
