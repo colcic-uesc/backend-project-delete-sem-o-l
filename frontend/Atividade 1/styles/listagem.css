@@ -1,0 +1,60 @@
+/* Reset de estilos padrões */
+@media (max-width: 768px) {
+    .header-title {
+        font-size: 20px;
+    }
+
+    .material-symbols-outlined {
+        font-size: 28px;
+    }
+
+    .footer-home .text {
+        font-size: 12px;
+    }
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+.main-home button {
+    color: white;
+    border: 1px solid black;
+    padding: 5px;
+    font-size: 20px;
+}
+
+.btn-1 {
+    background-color: #4CAF50; /* Verde */
+}
+
+.btn-2 {
+    background-color: #FFA500; /* Laranja */
+}
+
+.btn-3 {
+    background-color: #f44336; /* Vermelho */
+}
+
+.material-symbols-outlined {
+    font-size: 32px;
+}
+
+.main-home {
+    padding: 20px;
+}
+
+.tabela-home {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    border: 1px solid #000000;
+    padding: 12px;
+    text-align: center;
+}
