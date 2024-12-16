@@ -1,0 +1,48 @@
+/* Reset de estilos padrões */
+@media (max-width: 768px) {
+    .header-title {
+        font-size: 20px;
+    }
+
+    .material-symbols-outlined {
+        font-size: 28px;
+    }
+
+    .footer-home .text {
+        font-size: 12px;
+    }
+}
+
+.mainHome {
+    padding: 20px;
+}
+
+.mainHome button {
+    color: white;
+    border: 1px solid black;
+    padding: 5px;
+    font-size: 20px;
+}
+
+.btn1 {
+    background-color: #4CAF50; /* Verde */
+}
+
+.btn2 {
+    background-color: #FFA500; /* Laranja */
+}
+
+.btn3 {
+    background-color: #f44336; /* Vermelho */
+}
+
+.tabelaHome {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tdTabela {
+    border: 1px solid #000000;
+    padding: 12px;
+    text-align: center;
+}

@@ -3,7 +3,8 @@ import styles from "./footer.module.css"
 
 const Footer = () =>{
     return (
-        <footer>
+        <footer className={styles.footer}>
+            <p class={styles.footerText}>&copy; 2024 DELLETE sem o L. Todos os direitos reservados.</p>
         </footer>
     )
 }
