@@ -11,6 +11,6 @@ cd backend
 node app.js
 
 Terminal 2:
-cd frontend
+cd frontend<br\>
 cd atividade2
 npm run dev
