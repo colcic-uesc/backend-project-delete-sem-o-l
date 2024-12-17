@@ -55,8 +55,8 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <Link href="/views/formulario" className={styles.links}> {/* Caminho correto para a página de formulário */}
-              Formulário
+            <Link href="/views/adicionar" className={styles.links}> {/* Caminho correto para a página de formulário */}
+              Adicionar
             </Link>
           </li>
         </ul>

@@ -1,98 +1,94 @@
-import Image from "next/image";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
 
 export default function Home() {
+    const [users, setUsers] = useState<any[]>([]);
+    const router = useRouter();
+
+    // Função para buscar os usuários
+    const fetchUsers = async () => {
+        try {
+            const response = await fetch("http://localhost:3000/api/users");
+            if (response.ok) {
+                const data = await response.json();
+                setUsers(data);
+            } else {
+                console.error("Erro ao buscar usuários:", response.statusText);
+            }
+        } catch (error) {
+            console.error("Erro de rede:", error);
+        }
+    };
+
+    // Função para excluir um usuário
+    const deleteUser = async (userId: string) => {
+        try {
+            const response = await fetch(`http://localhost:3000/api/users/${userId}`, {
+                method: "DELETE",
+            });
+            if (response.ok) {
+                setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
+                console.log(`Usuário com ID ${userId} excluído com sucesso!`);
+            } else {
+                console.error("Erro ao excluir o usuário:", response.statusText);
+            }
+        } catch (error) {
+            console.error("Erro de rede ao excluir o usuário:", error);
+        }
+    };
+
+    // Função para redirecionar para a página de edição
+    const editUser = (userId: string) => {
+        router.push(`/views/editar/${userId}`); // Navega para a rota de edição com o ID
+    };
+
+    useEffect(() => {
+        fetchUsers();
+    }, []);
+
     return (
         <main className={styles.mainHome}>
-            <button className={styles.btn1}>Listar</button>
-            <button className={styles.btn2}>Editar</button>
-            <button className={styles.btn3}>Excluir</button>
-
             <table className={styles.tabelaHome}>
-                <tr>
-                    <td className={styles.tdTabela}>A1</td>
-                    <td className={styles.tdTabela}>B1</td>
-                    <td className={styles.tdTabela}>C1</td>
-                    <td className={styles.tdTabela}>D1</td>
-                    <td className={styles.tdTabela}>E1</td>
-                </tr>
-                <tr>
-                    <td className={styles.tdTabela}>A2</td>
-                    <td className={styles.tdTabela}>B2</td>
-                    <td className={styles.tdTabela}>C2</td>
-                    <td className={styles.tdTabela}>D2</td>
-                    <td className={styles.tdTabela}>E2</td>
-                </tr>
-                <tr>
-                    <td className={styles.tdTabela}>A3</td>
-                    <td className={styles.tdTabela}>B3</td>
-                    <td className={styles.tdTabela}>C3</td>
-                    <td className={styles.tdTabela}>D3</td>
-                    <td className={styles.tdTabela}>E3</td>
-                </tr>
-                <tr>
-                    <td className={styles.tdTabela}>A4</td>
-                    <td className={styles.tdTabela}>B4</td>
-                    <td className={styles.tdTabela}>C4</td>
-                    <td className={styles.tdTabela}>D4</td>
-                    <td className={styles.tdTabela}>E4</td>
-                </tr>
-                <tr>
-                    <td className={styles.tdTabela}>A5</td>
-                    <td className={styles.tdTabela}>B5</td>
-                    <td className={styles.tdTabela}>D5</td>
-                    <td className={styles.tdTabela}>C5</td>
-                    <td className={styles.tdTabela}>E5</td>
-                </tr>
-                <tr>
-                    <td className={styles.tdTabela}>A6</td>
-                    <td className={styles.tdTabela}>B6</td>
-                    <td className={styles.tdTabela}>D6</td>
-                    <td className={styles.tdTabela}>C6</td>
-                    <td className={styles.tdTabela}>E6</td>
-                </tr>
-                <tr>
-                    <td className={styles.tdTabela}>A7</td>
-                    <td className={styles.tdTabela}>B7</td>
-                    <td className={styles.tdTabela}>D7</td>
-                    <td className={styles.tdTabela}>C7</td>
-                    <td className={styles.tdTabela}>E7</td>
-                </tr>
-                <tr>
-                    <td className={styles.tdTabela}>A8</td>
-                    <td className={styles.tdTabela}>B8</td>
-                    <td className={styles.tdTabela}>D8</td>
-                    <td className={styles.tdTabela}>C8</td>
-                    <td className={styles.tdTabela}>E8</td>
-                </tr>
-                <tr>
-                    <td className={styles.tdTabela}>A9</td>
-                    <td className={styles.tdTabela}>B9</td>
-                    <td className={styles.tdTabela}>D9</td>
-                    <td className={styles.tdTabela}>C9</td>
-                    <td className={styles.tdTabela}>E9</td>
-                </tr>
-                <tr>
-                    <td className={styles.tdTabela}>A10</td>
-                    <td className={styles.tdTabela}>B10</td>
-                    <td className={styles.tdTabela}>D10</td>
-                    <td className={styles.tdTabela}>C10</td>
-                    <td className={styles.tdTabela}>E10</td>
-                </tr>
-                <tr>
-                    <td className={styles.tdTabela}>A11</td>
-                    <td className={styles.tdTabela}>B11</td>
-                    <td className={styles.tdTabela}>D11</td>
-                    <td className={styles.tdTabela}>C11</td>
-                    <td className={styles.tdTabela}>E11</td>
-                </tr>
-                <tr>
-                    <td className={styles.tdTabela}>A12</td>
-                    <td className={styles.tdTabela}>B12</td>
-                    <td className={styles.tdTabela}>D12</td>
-                    <td className={styles.tdTabela}>C12</td>
-                    <td className={styles.tdTabela}>E12</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th className={styles.tdTabela}>Nome</th>
+                        <th className={styles.tdTabela}>Email</th>
+                        <th className={styles.tdTabela}>Telefone</th>
+                        <th className={styles.tdTabela}>Sexo</th>
+                        <th className={styles.tdTabela}>Experiência</th>
+                        <th className={styles.tdTabela}>Ação</th> {/* Coluna para ações */}
+                    </tr>
+                </thead>
+                <tbody>
+                    {users.map((user) => (
+                        <tr key={user.id}>
+                            <td className={styles.tdTabela}>{user.nome}</td>
+                            <td className={styles.tdTabela}>{user.email}</td>
+                            <td className={styles.tdTabela}>{user.telefone}</td>
+                            <td className={styles.tdTabela}>{user.sexo}</td>
+                            <td className={styles.tdTabela}>{user.experiencia}</td>
+                            <td className={styles.tdTabela}>
+                                {/* Botão de editar */}
+                                <button
+                                    className={styles.btnEditar}
+                                    onClick={() => editUser(user.id)}
+                                >
+                                    Editar
+                                </button>
+                                {/* Botão de excluir */}
+                                <button
+                                    className={styles.btnExcluir}
+                                    onClick={() => deleteUser(user.id)}
+                                >
+                                    Excluir
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
             </table>
         </main>
     );

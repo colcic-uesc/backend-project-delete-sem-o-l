@@ -1,0 +1,84 @@
+.main {
+    place-content: center;
+    width: 40%;
+    margin: 0 auto;
+    color: #000;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.title, .footer-text, .form a {
+    text-align: center;
+}
+
+.formInput, .formTextarea, .formButton {
+    width: 100%;
+    margin-bottom: 16px;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.formInput {
+    border: 2px solid #000;
+}
+
+.formInput, .formTextarea {
+    padding: 16px;
+}
+
+.formInput, .formButton {
+    height: 40px;
+}
+
+.formButton {
+    cursor: pointer;
+    background-color: #25d366;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    height: 48px;
+}
+
+.formButton .buttonText {
+    margin-right: 8px;
+}
+
+.form a {
+    color: #25d366;
+}
+
+.formLabel, .formLegend {
+    font-size: 14px;
+    margin-bottom: 8px;
+    display: block;
+    color: #000;
+}
+
+.formFieldset {
+    margin-bottom: 16px;
+    border: 2px solid #25d366;
+    border-radius: 4px;
+    padding: 16px;
+}
+
+.formRadio, .formCheckbox {
+    margin-right: 8px;
+    accent-color: #25d366;
+}
+
+.selectSexo {
+    width: 100%;
+    margin-bottom: 16px;
+    border: 2px solid #000;
+    border-radius: 4px;
+    font-size: 16px;
+    height: 40px;
+}
+
+@media (max-width: 999px) {
+    .main {
+        width: 80%;
+    }
+}

@@ -46,3 +46,43 @@
     padding: 12px;
     text-align: center;
 }
+
+/* Estilizando o botão de excluir */
+.btnExcluir {
+    background-color: #e74c3c; /* Cor de fundo vermelha */
+    color: white; /* Cor do texto */
+    border: none; /* Remove a borda */
+    padding: 8px 16px; /* Tamanho do botão */
+    font-size: 14px; /* Tamanho da fonte */
+    cursor: pointer; /* Aponta como um ponteiro de clique */
+    border-radius: 5px; /* Cantos arredondados */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transições suaves */
+}
+  
+/* Efeito ao passar o mouse sobre o botão */
+.btnExcluir:hover {
+    background-color: #c0392b; /* Cor de fundo mais escura */
+    transform: scale(1.05); /* Aumenta um pouco o botão */
+}
+  
+/* Efeito ao pressionar o botão */
+.btnExcluir:active {
+    background-color: #a93226; /* Cor de fundo ainda mais escura */
+    transform: scale(0.98); /* Diminui o botão para simular pressionamento */
+}
+
+.btnEditar {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    margin-right: 8px;
+}
+
+.btnEditar:hover {
+    background-color: #0056b3;
+}

@@ -12,14 +12,14 @@ app.use('/api', userRoutes);
 
 // Sincroniza o banco de dados antes de iniciar o servidor
 sequelize.sync().then(() => {
-  console.log('Banco de dados sincronizado');
+    console.log('Banco de dados sincronizado');
 }).catch((error) => {
-  console.error('Erro ao sincronizar o banco de dados:', error);
+    console.error('Erro ao sincronizar o banco de dados:', error);
 });
 
 // Configuração do servidor para escutar na porta 3000
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
+    console.log(`Servidor rodando na porta ${PORT}`);
 });
